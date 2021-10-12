@@ -23,8 +23,8 @@ contract Accumulator {
 
 	// Function that adds its argument to the state variable.
 	function add(uint value) public checkOwnerAndAccept {
-        require(value>=1,103);
-        require(value<=10,103);
+        require(value>=1 && value<=10,103);
+       
 		composition *= value;
 	}
 }
