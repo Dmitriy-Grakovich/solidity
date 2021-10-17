@@ -43,7 +43,7 @@ contract TaskList {
 		tvm.accept();
 		_;
 	}
-    //- добавить задачу (должен в сопоставление заполняться последовательный целочисленный ключ)
+   //- добавить задачу (должен в сопоставление заполняться последовательный целочисленный ключ)
     function addTask(string name) public checkOwnerAndAccept{
         taskList[id] = task(name,now,false);
         id = id + 1;
@@ -54,22 +54,16 @@ contract TaskList {
         uint8 a = 0;
 
         for(uint8 i = 1; i< id; i++){
-            
+            if(taskList[i].timestamp!= uint8(0))
                 a++;
             
         }
-
             return a;
     }
 
     //- получить список всех задач
-    function listtask() public checkOwnerAndAccept returns (task[]){
-        
-        task[] listtaskes;
-        for(uint8 i = 1; i < id; i++){
-            listtaskes.push(taskList[i]);
-        }
-        return listtaskes;
+    function getlisttask() public checkOwnerAndAccept returns (mapping(uint8 => task)){
+        return taskList;
     }
 
     //- получить описание задачи по ключу
@@ -82,10 +76,7 @@ contract TaskList {
         require(taskList.exists(key_id), 103);
         delete taskList[key_id];
        
-    }
-
-    
-
+    }  
 
     //- отметить задачу как выполненную по ключу
     function truetask(uint8 key_id) public checkOwnerAndAccept {
