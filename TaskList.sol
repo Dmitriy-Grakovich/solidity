@@ -54,16 +54,21 @@ contract TaskList {
         uint8 a = 0;
 
         for(uint8 i = 1; i< id; i++){
-            if(taskList[i].timestamp!= uint8(0))
+            if(taskList[i].tip == false && taskList[i].timestamp != uint32(0) )
                 a++;
-            
-        }
+                }
             return a;
     }
 
     //- получить список всех задач
-    function getlisttask() public checkOwnerAndAccept returns (mapping(uint8 => task)){
-        return taskList;
+    function getlisttask() public checkOwnerAndAccept returns (task[] t){
+        task[] te;
+        for(uint8 i = 1; i < id; i++){
+            if(taskList[i].tip == false && taskList[i].timestamp != uint32(0)){
+                te.push(taskList[i]);
+            }
+        }
+        return te;
     }
 
     //- получить описание задачи по ключу
